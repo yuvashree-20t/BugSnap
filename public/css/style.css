@@ -1,0 +1,120 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #090817;
+    color: #ffffff;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 30px;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 750px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 55px;
+    background: linear-gradient(90deg, #a78bfa, #60a5fa);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.tagline {
+    display: inline-block;
+    color: #a78bfa;
+    font-size: 12px;
+    letter-spacing: 3px;
+    margin-bottom: 24px;
+}
+
+h1 {
+    font-size: clamp(42px, 7vw, 76px);
+    line-height: 1.12;
+    margin-bottom: 24px;
+}
+
+h1 span {
+    display: block;
+    background: linear-gradient(
+        90deg,
+        #a78bfa,
+        #818cf8,
+        #38bdf8
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+p {
+    color: #aaa7c4;
+    font-size: 17px;
+    line-height: 1.8;
+    margin-bottom: 32px;
+}
+
+button {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(110deg, #7c3aed, #2563eb);
+    box-shadow: 0 0 30px #7138dd55;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 40px #7138dd99;
+}
+
+.server-status {
+    margin-top: 28px;
+    color: #a5a1bd;
+    font-size: 13px;
+}
+
+.glow {
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.3;
+}
+
+.glow-one {
+    background: #7537ef;
+    top: -120px;
+    left: -100px;
+}
+
+.glow-two {
+    background: #1679f9;
+    bottom: -150px;
+    right: -100px;
+}
