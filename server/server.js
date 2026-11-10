@@ -1,12 +1,18 @@
 
+
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 
-dotenv.config();
+import connectDB from "./config/db.js";
+import reportRoutes from "./routes/reportRoutes.js";
+import notFound from "./middleware/notFoundMiddleware.js";
+import errorHandler from "./middleware/errorMiddleware.js";
 
+dotenv.config();
+console.log("Mongo URI loaded:", !!process.env.MONGO_URI);
 const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -14,23 +20,46 @@ const __dirname = path.dirname(__filename);
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "1mb" }));
 
-// Serve frontend
+// Frontend
 app.use(express.static(path.join(__dirname, "../public")));
 
-// Health check API
+// Health check
 app.get("/api/health", (req, res) => {
     res.status(200).json({
         success: true,
         message: "BugSnap server is running!",
-        status: "Healthy"
+        database: "Connected"
     });
 });
 
-// Server
-const PORT = process.env.PORT || 5000;
+// Report APIs
+app.use("/api/reports", reportRoutes);
 
-app.listen(PORT, () => {
-    console.log(`BugSnap server running on port ${PORT}`);
-});
+// Error handling
+app.use(notFound);
+app.use(errorHandler);
+
+// Connect database before accepting requests
+const startServer = async () => {
+    try {
+        await connectDB();
+
+        const PORT = process.env.PORT || 5000;
+
+        app.listen(PORT, () => {
+            console.log("--------------------------------");
+            console.log("BugSnap backend started!");
+            console.log(`Server: http://localhost:${PORT}`);
+            console.log("MongoDB: Connected");
+            console.log("--------------------------------");
+        });
+
+    } catch (error) {
+        console.error("Unable to start BugSnap:", error.message);
+        process.exit(1);
+    }
+};
+
+startServer();

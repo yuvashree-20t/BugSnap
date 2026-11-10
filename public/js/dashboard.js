@@ -1,21 +1,26 @@
 
-function renderDashboard() {
-    const reports = getReports();
+async function renderDashboard() {
+    try {
+        const reports = await getReports();
 
-    const total = reports.length;
-    const open = reports.filter(r => r.status === "Open").length;
-    const progress = reports.filter(r => r.status === "In Progress").length;
-    const resolved = reports.filter(r => r.status === "Resolved").length;
+        const total = reports.length;
+        const open = reports.filter(r => r.status === "Open").length;
+        const progress = reports.filter(r => r.status === "In Progress").length;
+        const resolved = reports.filter(r => r.status === "Resolved").length;
 
-    document.getElementById("totalStat").textContent = total;
-    document.getElementById("openStat").textContent = open;
-    document.getElementById("progressStat").textContent = progress;
-    document.getElementById("resolvedStat").textContent = resolved;
+        document.getElementById("totalStat").textContent = total;
+        document.getElementById("openStat").textContent = open;
+        document.getElementById("progressStat").textContent = progress;
+        document.getElementById("resolvedStat").textContent = resolved;
+        document.getElementById("reportCount").textContent = total;
 
-    document.getElementById("reportCount").textContent = total;
+        renderRecentReports(reports.slice(0, 5));
+        renderSeverityOverview(reports);
 
-    renderRecentReports(reports.slice(0, 5));
-    renderSeverityOverview(reports);
+    } catch (error) {
+        console.error(error);
+        showToast("Unable to load dashboard data.");
+    }
 }
 
 function renderRecentReports(reports) {
@@ -23,7 +28,6 @@ function renderRecentReports(reports) {
     const empty = document.getElementById("recentEmpty");
 
     tbody.innerHTML = "";
-
     empty.classList.toggle("hidden", reports.length > 0);
 
     reports.forEach(report => {
@@ -33,19 +37,22 @@ function renderRecentReports(reports) {
         title.textContent = report.title;
 
         const severity = document.createElement("td");
-        severity.innerHTML = `<span class="severity-badge ${severityClass(report.severity)}">${escapeHTML(report.severity)}</span>`;
+        severity.innerHTML =
+            `<span class="severity-badge ${severityClass(report.severity)}">${escapeHTML(report.severity)}</span>`;
 
         const status = document.createElement("td");
-        status.innerHTML = `<span class="status-badge ${statusClass(report.status)}">${escapeHTML(report.status)}</span>`;
+        status.innerHTML =
+            `<span class="status-badge ${statusClass(report.status)}">${escapeHTML(report.status)}</span>`;
 
         const date = document.createElement("td");
         date.textContent = formatDate(report.createdAt);
 
         row.append(title, severity, status, date);
-        tbody.appendChild(row);
 
-        row.addEventListener("click", () => openReport(report.id));
+        row.addEventListener("click", () => openReport(report._id));
         row.style.cursor = "pointer";
+
+        tbody.appendChild(row);
     });
 }
 
@@ -53,6 +60,7 @@ function renderSeverityOverview(reports) {
     const container = document.getElementById("severityOverview");
 
     const levels = ["Critical", "High", "Medium", "Low"];
+
     const colors = {
         Critical: "#fb7185",
         High: "#fb923c",
@@ -64,6 +72,7 @@ function renderSeverityOverview(reports) {
 
     levels.forEach(level => {
         const count = reports.filter(r => r.severity === level).length;
+
         const percentage = reports.length
             ? (count / reports.length) * 100
             : 0;
