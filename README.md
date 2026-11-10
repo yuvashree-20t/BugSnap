@@ -24,7 +24,3 @@ software bug reports using screenshots and AI analysis.
 - Bug report management
 - Dashboard and analytics
 - Markdown export
-
-## Project Status
-
-Phase 1 - Project Initialization
