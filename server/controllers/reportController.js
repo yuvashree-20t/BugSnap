@@ -2,10 +2,12 @@
 import mongoose from "mongoose";
 import BugReport from "../models/BugReport.js";
 
-// GET all reports
+// GET ALL REPORTS BELONGING TO CURRENT USER
 export const getReports = async (req, res, next) => {
     try {
-        const reports = await BugReport.find().sort({ createdAt: -1 });
+        const reports = await BugReport.find({
+            user: req.user._id
+        }).sort({ createdAt: -1 });
 
         res.status(200).json({
             success: true,
@@ -18,7 +20,7 @@ export const getReports = async (req, res, next) => {
     }
 };
 
-// GET one report
+// GET SINGLE REPORT
 export const getReportById = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -26,16 +28,19 @@ export const getReportById = async (req, res, next) => {
         if (!mongoose.isValidObjectId(id)) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid report ID"
+                message: "Invalid report ID."
             });
         }
 
-        const report = await BugReport.findById(id);
+        const report = await BugReport.findOne({
+            _id: id,
+            user: req.user._id
+        });
 
         if (!report) {
             return res.status(404).json({
                 success: false,
-                message: "Bug report not found"
+                message: "Bug report not found."
             });
         }
 
@@ -49,12 +54,12 @@ export const getReportById = async (req, res, next) => {
     }
 };
 
-// CREATE report
+// CREATE REPORT
 export const createReport = async (req, res, next) => {
     try {
         const {
-            description,
             title,
+            description,
             category,
             severity,
             priority,
@@ -69,11 +74,13 @@ export const createReport = async (req, res, next) => {
         ) {
             return res.status(400).json({
                 success: false,
-                message: "Description must contain at least 10 characters"
+                message: "Description must contain at least 10 characters."
             });
         }
 
         const report = await BugReport.create({
+            user: req.user._id,
+
             title: typeof title === "string" && title.trim()
                 ? title.trim()
                 : description.trim().slice(0, 55),
@@ -89,7 +96,7 @@ export const createReport = async (req, res, next) => {
 
         res.status(201).json({
             success: true,
-            message: "Bug report created successfully",
+            message: "Bug report created successfully.",
             data: report
         });
 
@@ -105,7 +112,7 @@ export const createReport = async (req, res, next) => {
     }
 };
 
-// UPDATE report
+// UPDATE REPORT
 export const updateReport = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -113,7 +120,7 @@ export const updateReport = async (req, res, next) => {
         if (!mongoose.isValidObjectId(id)) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid report ID"
+                message: "Invalid report ID."
             });
         }
 
@@ -140,12 +147,15 @@ export const updateReport = async (req, res, next) => {
         if (Object.keys(updates).length === 0) {
             return res.status(400).json({
                 success: false,
-                message: "No valid fields provided for update"
+                message: "No valid update fields provided."
             });
         }
 
-        const report = await BugReport.findByIdAndUpdate(
-            id,
+        const report = await BugReport.findOneAndUpdate(
+            {
+                _id: id,
+                user: req.user._id
+            },
             { $set: updates },
             {
                 new: true,
@@ -156,13 +166,13 @@ export const updateReport = async (req, res, next) => {
         if (!report) {
             return res.status(404).json({
                 success: false,
-                message: "Bug report not found"
+                message: "Bug report not found."
             });
         }
 
         res.status(200).json({
             success: true,
-            message: "Bug report updated successfully",
+            message: "Bug report updated successfully.",
             data: report
         });
 
@@ -178,7 +188,7 @@ export const updateReport = async (req, res, next) => {
     }
 };
 
-// DELETE report
+// DELETE REPORT
 export const deleteReport = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -186,25 +196,29 @@ export const deleteReport = async (req, res, next) => {
         if (!mongoose.isValidObjectId(id)) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid report ID"
+                message: "Invalid report ID."
             });
         }
 
-        const report = await BugReport.findByIdAndDelete(id);
+        const report = await BugReport.findOneAndDelete({
+            _id: id,
+            user: req.user._id
+        });
 
         if (!report) {
             return res.status(404).json({
                 success: false,
-                message: "Bug report not found"
+                message: "Bug report not found."
             });
         }
 
         res.status(200).json({
             success: true,
-            message: "Bug report deleted successfully"
+            message: "Bug report deleted successfully."
         });
 
     } catch (error) {
         next(error);
     }
 };
+

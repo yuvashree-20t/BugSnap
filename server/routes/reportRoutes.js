@@ -1,6 +1,8 @@
 
 import express from "express";
 
+import protect from "../middleware/authMiddleware.js";
+
 import {
     getReports,
     getReportById,
@@ -10,6 +12,9 @@ import {
 } from "../controllers/reportController.js";
 
 const router = express.Router();
+
+// Every report route requires authentication
+router.use(protect);
 
 router.route("/")
     .get(getReports)

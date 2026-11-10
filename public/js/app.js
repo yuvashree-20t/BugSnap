@@ -259,4 +259,6 @@ document.getElementById("clearDataButton").addEventListener("click", () => {
 });
 
 // Initial application load
-navigateTo("dashboard");
+document.addEventListener("bugsnap:authenticated", () => {
+    navigateTo("dashboard");
+});

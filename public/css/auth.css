@@ -1,0 +1,459 @@
+
+/* =========================================
+   BUGSNAP - AUTHENTICATION STYLES
+   Midnight Gradient Theme
+========================================= */
+
+/* ---------- GLOBAL AUTH VISIBILITY ---------- */
+
+.auth-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    width: 100%;
+    min-height: 100vh;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 20px;
+    overflow-y: auto;
+
+    background:
+        radial-gradient(
+            ellipse at 15% 20%,
+            rgba(128, 84, 233, 0.16),
+            transparent 42%
+        ),
+        radial-gradient(
+            ellipse at 85% 85%,
+            rgba(40, 185, 208, 0.10),
+            transparent 42%
+        ),
+        radial-gradient(
+            ellipse at 50% 50%,
+            rgba(65, 105, 225, 0.05),
+            transparent 60%
+        ),
+        #08090D;
+
+    box-sizing: border-box;
+}
+
+/* Hide authentication screen after login */
+
+.auth-screen.hidden {
+    display: none !important;
+}
+
+/* Hide dashboard before login */
+
+.app-shell:not(.authenticated) {
+    display: none !important;
+}
+
+/* Show dashboard after successful login */
+
+.app-shell.authenticated {
+    display: flex;
+}
+
+
+/* ---------- BACKGROUND DECORATION ---------- */
+
+.auth-decoration {
+    position: fixed;
+
+    width: 420px;
+    height: 420px;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background: rgba(128, 84, 233, 0.12);
+
+    filter: blur(140px);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+    z-index: 0;
+}
+
+
+/* ---------- BRAND ---------- */
+
+.auth-brand {
+    position: absolute;
+
+    top: 32px;
+    left: 40px;
+
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    color: #F5F5FA;
+
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+
+    z-index: 2;
+}
+
+.brand-icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        #8054E9,
+        #4169E1,
+        #28B9D0
+    );
+
+    color: white;
+
+    font-size: 23px;
+
+    box-shadow:
+        0 5px 25px rgba(128, 84, 233, 0.28);
+}
+
+.brand-highlight {
+    color: #A98AFF;
+}
+
+
+/* ---------- AUTH CARD ---------- */
+
+.auth-card {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 440px;
+
+    padding: 42px;
+
+    box-sizing: border-box;
+
+    background: linear-gradient(
+        145deg,
+        rgba(25, 25, 37, 0.98),
+        rgba(13, 14, 21, 0.98)
+    );
+
+    border: 1px solid rgba(170, 155, 220, 0.15);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 25px 90px rgba(0, 0, 0, 0.55),
+        0 0 45px rgba(128, 84, 233, 0.07);
+
+    animation: authAppear 0.45s ease;
+}
+
+@keyframes authAppear {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ---------- AUTH HEADING ---------- */
+
+.auth-heading {
+    margin-bottom: 30px;
+}
+
+.auth-heading .eyebrow {
+    display: inline-block;
+
+    margin-bottom: 13px;
+
+    color: #A98AFF;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.auth-heading h1 {
+    margin: 0 0 11px;
+
+    color: #F5F5FA;
+
+    font-size: 29px;
+    font-weight: 750;
+
+    letter-spacing: -1px;
+}
+
+.auth-heading p {
+    margin: 0;
+
+    color: #9293A5;
+
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+
+/* ---------- FORM ---------- */
+
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+.auth-card label {
+    margin-top: 7px;
+
+    color: #D8D5E8;
+
+    font-size: 11px;
+    font-weight: 650;
+}
+
+.auth-card input {
+    width: 100%;
+    height: 46px;
+
+    padding: 0 14px;
+
+    box-sizing: border-box;
+
+    background: #0B0C13;
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    border-radius: 9px;
+
+    color: #F5F5FA;
+
+    font-family: inherit;
+    font-size: 12px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.auth-card input::placeholder {
+    color: #666779;
+}
+
+.auth-card input:hover {
+    border-color: rgba(169, 138, 255, 0.3);
+}
+
+.auth-card input:focus {
+    background: #10111B;
+
+    border-color: #8054E9;
+
+    box-shadow:
+        0 0 0 3px rgba(128, 84, 233, 0.13);
+}
+
+
+/* ---------- SUBMIT BUTTON ---------- */
+
+.auth-card .auth-submit {
+    width: 100%;
+    min-height: 47px;
+
+    margin-top: 17px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 10px;
+
+    background: linear-gradient(
+        110deg,
+        #8054E9,
+        #5369E9,
+        #28B9D0
+    );
+
+    color: white;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 750;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px rgba(83, 105, 233, 0.2);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.auth-card .auth-submit:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(83, 105, 233, 0.32);
+}
+
+.auth-card .auth-submit:active {
+    transform: translateY(0);
+}
+
+.auth-card .auth-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* ---------- LOGIN / REGISTER SWITCH ---------- */
+
+.auth-switch {
+    margin: 26px 0 0;
+
+    color: #9293A5;
+
+    font-size: 11px;
+
+    text-align: center;
+}
+
+.auth-switch button {
+    margin-left: 4px;
+    padding: 0;
+
+    background: transparent;
+    border: none;
+
+    color: #A98AFF;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 750;
+
+    cursor: pointer;
+
+    transition: color 0.2s ease;
+}
+
+.auth-switch button:hover {
+    color: #C4B0FF;
+}
+
+
+/* ---------- PROFILE / LOGOUT ---------- */
+
+.logout-button {
+    margin-left: auto;
+
+    padding: 7px 10px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    border-radius: 7px;
+
+    color: #C5B6F8;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.logout-button:hover {
+    background: rgba(251, 113, 133, 0.12);
+
+    color: #FB7185;
+
+    border-color: rgba(251, 113, 133, 0.25);
+}
+
+.profile-info {
+    min-width: 0;
+}
+
+.profile-info strong,
+.profile-info small {
+    display: block;
+
+    max-width: 130px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ---------- RESPONSIVE DESIGN ---------- */
+
+@media (max-width: 600px) {
+
+    .auth-screen {
+        padding: 85px 18px 25px;
+    }
+
+    .auth-brand {
+        top: 22px;
+        left: 20px;
+
+        font-size: 22px;
+    }
+
+    .auth-card {
+        padding: 30px 23px;
+
+        border-radius: 16px;
+    }
+
+    .auth-heading h1 {
+        font-size: 25px;
+    }
+}
+
+@media (max-height: 650px) {
+
+    .auth-screen {
+        align-items: flex-start;
+    }
+
+    .auth-card {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+}
