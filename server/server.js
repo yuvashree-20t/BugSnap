@@ -11,7 +11,7 @@ import reportRoutes from "./routes/reportRoutes.js";
 import notFound from "./middleware/notFoundMiddleware.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 import authRoutes from "./routes/authRoutes.js";
-
+import aiRoutes from "./routes/aiRoutes.js";
 dotenv.config();
 console.log("JWT_SECRET loaded:", Boolean(process.env.JWT_SECRET));
 console.log("Mongo URI loaded:", !!process.env.MONGO_URI);
@@ -24,6 +24,7 @@ const __dirname = path.dirname(__filename);
 app.use(cors());
 app.use(express.json({ limit: "1mb" }));
 app.use("/api/auth", authRoutes);
+
 
 // Frontend
 app.use(express.static(path.join(__dirname, "../public")));
@@ -42,6 +43,7 @@ app.use("/api/auth", authRoutes);
 
 // Report APIs
 app.use("/api/reports", reportRoutes);
+app.use("/api/ai", aiRoutes);
 
 // Error handling
 app.use(notFound);

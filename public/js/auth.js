@@ -1,17 +1,22 @@
 
-const TOKEN_KEY ="b51c4b89697e44857ea8c185b2454041b82cba265941a75b022a55eab0fde94593b3c5045fa94b869ce4684bd44d4f3fa3e91452cf2d32214136d843a3d10ddf";
+const TOKEN_KEY = "b51c4b89697e44857ea8c185b2454041b82cba265941a75b022a55eab0fde94593b3c5045fa94b869ce4684bd44d4f3fa3e91452cf2d32214136d843a3d10ddf";
+
+// GET TOKEN
 function getToken() {
     return localStorage.getItem(TOKEN_KEY);
 }
 
-// Authenticated API request helper
+// AUTHENTICATED API REQUEST HELPER
 async function authFetch(url, options = {}) {
     const token = getToken();
 
     const headers = {
-        ...options.headers,
-        Authorization: `Bearer ${token}`
+        ...options.headers
     };
+
+    if (token) {
+        headers.Authorization = `Bearer ${token}`;
+    }
 
     const response = await fetch(url, {
         ...options,
@@ -27,10 +32,14 @@ async function authFetch(url, options = {}) {
     return response;
 }
 
+// SHOW LOGIN SCREEN
 function showAuthScreen() {
-    document.getElementById("authScreen").classList.remove("hidden");
-
+    const authScreen = document.getElementById("authScreen");
     const shell = document.querySelector(".app-shell");
+
+    authScreen.classList.remove("hidden");
+
+    shell.classList.add("hidden");
     shell.classList.remove("authenticated");
 
     document.getElementById("loginCard").classList.remove("hidden");
@@ -40,37 +49,47 @@ function showAuthScreen() {
     document.getElementById("registerForm").reset();
 }
 
+// SHOW MAIN APPLICATION
 function showApplication(user) {
-    document.getElementById("authScreen").classList.add("hidden");
-
+    const authScreen = document.getElementById("authScreen");
     const shell = document.querySelector(".app-shell");
+
+    // Hide authentication screen
+    authScreen.classList.add("hidden");
+
+    // IMPORTANT: Remove hidden from dashboard
+    shell.classList.remove("hidden");
     shell.classList.add("authenticated");
 
+    // Update user profile
     document.getElementById("profileName").textContent = user.name;
     document.getElementById("profileEmail").textContent = user.email;
+
     document.getElementById("profileAvatar").textContent =
         user.name.charAt(0).toUpperCase();
 
+    // Notify other application scripts
     document.dispatchEvent(new Event("bugsnap:authenticated"));
 }
 
-// Switch to registration
+// SWITCH TO REGISTER
 document.getElementById("showRegister").addEventListener("click", () => {
     document.getElementById("loginCard").classList.add("hidden");
     document.getElementById("registerCard").classList.remove("hidden");
 });
 
-// Switch to login
+// SWITCH TO LOGIN
 document.getElementById("showLogin").addEventListener("click", () => {
     document.getElementById("registerCard").classList.add("hidden");
     document.getElementById("loginCard").classList.remove("hidden");
 });
 
 // REGISTER
-document.getElementById("registerForm").addEventListener("submit", async event => {
+document.getElementById("registerForm").addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const button = event.submitter;
+
     const name = document.getElementById("registerName").value.trim();
     const email = document.getElementById("registerEmail").value.trim();
     const password = document.getElementById("registerPassword").value;
@@ -90,7 +109,11 @@ document.getElementById("registerForm").addEventListener("submit", async event =
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ name, email, password })
+            body: JSON.stringify({
+                name,
+                email,
+                password
+            })
         });
 
         const result = await response.json();
@@ -102,6 +125,7 @@ document.getElementById("registerForm").addEventListener("submit", async event =
         localStorage.setItem(TOKEN_KEY, result.token);
 
         showToast("Account created successfully!");
+
         showApplication(result.user);
 
     } catch (error) {
@@ -113,10 +137,11 @@ document.getElementById("registerForm").addEventListener("submit", async event =
 });
 
 // LOGIN
-document.getElementById("loginForm").addEventListener("submit", async event => {
+document.getElementById("loginForm").addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const button = event.submitter;
+
     const email = document.getElementById("loginEmail").value.trim();
     const password = document.getElementById("loginPassword").value;
 
@@ -129,7 +154,10 @@ document.getElementById("loginForm").addEventListener("submit", async event => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({
+                email,
+                password
+            })
         });
 
         const result = await response.json();
@@ -141,6 +169,7 @@ document.getElementById("loginForm").addEventListener("submit", async event => {
         localStorage.setItem(TOKEN_KEY, result.token);
 
         showToast("Welcome back!");
+
         showApplication(result.user);
 
     } catch (error) {
@@ -154,7 +183,9 @@ document.getElementById("loginForm").addEventListener("submit", async event => {
 // LOGOUT
 document.getElementById("logoutButton").addEventListener("click", () => {
     localStorage.removeItem(TOKEN_KEY);
+
     showAuthScreen();
+
     showToast("You have been logged out.");
 });
 
@@ -186,9 +217,12 @@ async function initializeAuthentication() {
 
     } catch (error) {
         console.error("Session verification failed:", error);
+
         showAuthScreen();
+
         showToast("Unable to verify your session.");
     }
 }
 
+// INITIALIZE AUTHENTICATION
 initializeAuthentication();

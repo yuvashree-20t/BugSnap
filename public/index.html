@@ -1,12 +1,22 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BugSnap - AI-powered software bug reporting">
-    <title>BugSnap | Developer Workspace</title>
 
+    <meta name="description" content="BugSnap - AI-powered screenshot-based bug reporting platform.">
+
+    <title>BugSnap | Bug Reporting Workspace</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheets -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="/css/components.css">
@@ -15,572 +25,1363 @@
 
 <body>
 
-    
-<!-- AUTHENTICATION SCREEN -->
-<section class="auth-screen" id="authScreen">
+    <!-- =====================================
+         AUTHENTICATION SCREEN
+    ====================================== -->
 
-    <div class="auth-decoration"></div>
+    <section class="auth-screen" id="authScreen">
 
-    <div class="auth-brand">
-        <span class="brand-icon">✦</span>
-        <span>Bug<span class="brand-highlight">Snap</span></span>
-    </div>
+        <div class="auth-decoration"></div>
 
-    <!-- LOGIN -->
-    <div class="auth-card" id="loginCard">
-
-        <div class="auth-heading">
-            <span class="eyebrow">WELCOME BACK</span>
-            <h1>Welcome back.</h1>
-            <p>Sign in to continue to your developer workspace.</p>
-        </div>
-
-        <form id="loginForm">
-
-            <label for="loginEmail">Email address</label>
-            <input
-                type="email"
-                id="loginEmail"
-                placeholder="you@example.com"
-                autocomplete="email"
-                required
-            >
-
-            <label for="loginPassword">Password</label>
-            <input
-                type="password"
-                id="loginPassword"
-                placeholder="Enter your password"
-                autocomplete="current-password"
-                required
-            >
-
-            <button type="submit" class="primary-button auth-submit">
-                Sign in →
-            </button>
-
-        </form>
-
-        <p class="auth-switch">
-            Don't have an account?
-            <button type="button" id="showRegister">Create account</button>
-        </p>
-
-    </div>
-
-    <!-- REGISTER -->
-    <div class="auth-card hidden" id="registerCard">
-
-        <div class="auth-heading">
-            <span class="eyebrow">GET STARTED</span>
-            <h1>Create your account.</h1>
-            <p>Set up your BugSnap developer workspace.</p>
-        </div>
-
-        <form id="registerForm">
-
-            <label for="registerName">Full name</label>
-            <input
-                type="text"
-                id="registerName"
-                placeholder="Your name"
-                minlength="2"
-                maxlength="50"
-                autocomplete="name"
-                required
-            >
-
-            <label for="registerEmail">Email address</label>
-            <input
-                type="email"
-                id="registerEmail"
-                placeholder="you@example.com"
-                autocomplete="email"
-                required
-            >
-
-            <label for="registerPassword">Password</label>
-            <input
-                type="password"
-                id="registerPassword"
-                placeholder="Minimum 8 characters"
-                minlength="8"
-                maxlength="72"
-                autocomplete="new-password"
-                required
-            >
-
-            <label for="confirmPassword">Confirm password</label>
-            <input
-                type="password"
-                id="confirmPassword"
-                placeholder="Re-enter password"
-                minlength="8"
-                maxlength="72"
-                autocomplete="new-password"
-                required
-            >
-
-            <button type="submit" class="primary-button auth-submit">
-                Create account →
-            </button>
-
-        </form>
-
-        <p class="auth-switch">
-            Already have an account?
-            <button type="button" id="showLogin">Sign in</button>
-        </p>
-
-    </div>
-
-</section>
-
-<div class="app-shell">
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-
-        <a href="#" class="brand" data-page="dashboard">
+        <!-- Brand -->
+        <div class="auth-brand">
             <span class="brand-icon">✦</span>
-            <span>Bug<span class="brand-highlight">Snap</span></span>
-        </a>
 
-        <div class="workspace-label">WORKSPACE</div>
-
-        <nav class="nav-menu">
-            <button class="nav-item active" data-page="dashboard">
-                <span>▦</span> Dashboard
-            </button>
-
-            <button class="nav-item" data-page="reports">
-                <span>◫</span> All Reports
-                <span class="nav-count" id="reportCount">0</span>
-            </button>
-
-            <button class="nav-item" data-page="create">
-                <span>＋</span> Create Report
-            </button>
-        </nav>
-
-        <div class="sidebar-bottom">
-            <div class="workspace-label">PREFERENCES</div>
-
-            <button class="nav-item" data-page="settings">
-                <span>⚙</span> Settings
-            </button>
-
-            
-<div class="profile-card">
-    <div class="avatar" id="profileAvatar">Y</div>
-
-    <div class="profile-info">
-        <strong id="profileName">Developer</strong>
-        <small id="profileEmail">Personal Workspace</small>
-    </div>
-
-    <button
-        class="logout-button"
-        id="logoutButton"
-        type="button"
-        title="Logout"
-    >
-        ↗
-    </button>
-</div>
-
+            <span>
+                Bug<span class="brand-highlight">Snap</span>
+            </span>
         </div>
-    </aside>
 
-    <!-- MAIN AREA -->
-    <main class="main-area">
 
-        <header class="topbar">
-            <button class="mobile-menu" id="mobileMenu">☰</button>
+        <!-- LOGIN CARD -->
 
-            <div class="breadcrumb">
-                Workspace <span>/</span>
-                <strong id="breadcrumbTitle">Dashboard</strong>
+        <div class="auth-card" id="loginCard">
+
+            <div class="auth-heading">
+
+                <span class="eyebrow">WELCOME BACK</span>
+
+                <h1>Welcome back.</h1>
+
+                <p>
+                    Sign in to continue to your developer workspace.
+                </p>
+
             </div>
 
-            <div class="topbar-actions">
-                <span class="connection-status">
-                    <span class="status-dot"></span> System online
-                </span>
-                <button class="icon-button" id="notificationButton">♧</button>
-                <div class="top-avatar">Y</div>
-            </div>
-        </header>
 
-        <!-- DASHBOARD -->
-        <section class="page active" id="dashboardPage">
+            <form id="loginForm">
 
-            <div class="page-heading">
-                <div>
-                    <span class="eyebrow">OVERVIEW</span>
-                    <h1>Welcome back, Developer <span>✦</span></h1>
-                    <p>Here's what's happening with your bug reports.</p>
-                </div>
+                <label for="loginEmail">
+                    Email address
+                </label>
 
-                <button class="primary-button" data-page="create">
-                    ＋ Create bug report
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="you@example.com"
+                    autocomplete="email"
+                    required
+                >
+
+
+                <label for="loginPassword">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                    class="primary-button auth-submit"
+                >
+                    Sign in →
                 </button>
-            </div>
-
-            <div class="stats-grid">
-
-                <article class="stat-card">
-                    <div class="stat-top">
-                        <span>Total Reports</span>
-                        <span class="stat-icon purple">◫</span>
-                    </div>
-                    <h2 id="totalStat">0</h2>
-                    <small>All submitted reports</small>
-                </article>
-
-                <article class="stat-card">
-                    <div class="stat-top">
-                        <span>Open Issues</span>
-                        <span class="stat-icon blue">◷</span>
-                    </div>
-                    <h2 id="openStat">0</h2>
-                    <small>Awaiting investigation</small>
-                </article>
-
-                <article class="stat-card">
-                    <div class="stat-top">
-                        <span>In Progress</span>
-                        <span class="stat-icon orange">⚡</span>
-                    </div>
-                    <h2 id="progressStat">0</h2>
-                    <small>Currently being worked on</small>
-                </article>
-
-                <article class="stat-card">
-                    <div class="stat-top">
-                        <span>Resolved</span>
-                        <span class="stat-icon green">✓</span>
-                    </div>
-                    <h2 id="resolvedStat">0</h2>
-                    <small>Successfully resolved</small>
-                </article>
-
-            </div>
-
-            <div class="dashboard-grid">
-
-                <section class="panel reports-panel">
-                    <div class="panel-heading">
-                        <div>
-                            <h3>Recent bug reports</h3>
-                            <p>Your latest reported issues</p>
-                        </div>
-                        <button class="text-button" data-page="reports">
-                            View all →
-                        </button>
-                    </div>
-
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>BUG TITLE</th>
-                                    <th>SEVERITY</th>
-                                    <th>STATUS</th>
-                                    <th>DATE</th>
-                                </tr>
-                            </thead>
-                            <tbody id="recentReports"></tbody>
-                        </table>
-                    </div>
-
-                    <div class="empty-state" id="recentEmpty">
-                        <span>✦</span>
-                        <h3>No reports yet</h3>
-                        <p>Create your first bug report to get started.</p>
-                        <button class="secondary-button" data-page="create">
-                            Create your first report
-                        </button>
-                    </div>
-                </section>
-
-                <section class="panel overview-panel">
-                    <div class="panel-heading">
-                        <div>
-                            <h3>Severity overview</h3>
-                            <p>Distribution of reported issues</p>
-                        </div>
-                    </div>
-
-                    <div id="severityOverview" class="severity-list"></div>
-                </section>
-
-            </div>
-        </section>
-
-        <!-- CREATE REPORT -->
-        <section class="page" id="createPage">
-
-            <div class="page-heading">
-                <div>
-                    <span class="eyebrow">NEW ISSUE</span>
-                    <h1>Create bug report</h1>
-                    <p>Upload a screenshot and describe the issue.</p>
-                </div>
-            </div>
-
-            <form id="reportForm" class="form-layout">
-
-                <div class="panel form-panel">
-                    <h3>Issue information</h3>
-                    <p class="form-description">
-                        Provide the details of the problem you encountered.
-                    </p>
-
-                    <label for="bugDescription">Issue description *</label>
-                    <textarea
-                        id="bugDescription"
-                        placeholder="Example: The login button does not respond when clicked..."
-                        required
-                        minlength="10"
-                        maxlength="2000"
-                    ></textarea>
-
-                    <div class="field-row">
-                        <div>
-                            <label for="bugCategory">Category</label>
-                            <select id="bugCategory">
-                                <option>Functional</option>
-                                <option>UI / UX</option>
-                                <option>Performance</option>
-                                <option>Security</option>
-                                <option>Compatibility</option>
-                                <option>Other</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label for="bugSeverity">Severity</label>
-                            <select id="bugSeverity">
-                                <option>Critical</option>
-                                <option>High</option>
-                                <option selected>Medium</option>
-                                <option>Low</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <label for="bugPriority">Priority</label>
-                    <select id="bugPriority">
-                        <option>High</option>
-                        <option selected>Medium</option>
-                        <option>Low</option>
-                    </select>
-
-                    <label for="expectedBehavior">Expected behavior</label>
-                    <textarea
-                        id="expectedBehavior"
-                        placeholder="What should happen?"
-                        maxlength="2000"
-                    ></textarea>
-
-                    <label for="actualBehavior">Actual behavior</label>
-                    <textarea
-                        id="actualBehavior"
-                        placeholder="What actually happens?"
-                        maxlength="2000"
-                    ></textarea>
-
-                    <label for="reproductionSteps">Steps to reproduce</label>
-                    <textarea
-                        id="reproductionSteps"
-                        placeholder="1. Open the application&#10;2. Navigate to login&#10;3. Click the login button"
-                        maxlength="2000"
-                    ></textarea>
-                </div>
-
-                <div class="panel upload-panel">
-                    <h3>Screenshot evidence</h3>
-                    <p class="form-description">
-                        Attach a screenshot of the issue.
-                    </p>
-
-                    <label class="upload-zone" id="uploadZone" for="screenshotInput">
-                        <input
-                            type="file"
-                            id="screenshotInput"
-                            accept="image/png,image/jpeg,image/webp"
-                            hidden
-                        >
-
-                        <div id="uploadPlaceholder">
-                            <div class="upload-icon">⇧</div>
-                            <strong>Drop your screenshot here</strong>
-                            <p>or click to browse files</p>
-                            <small>PNG, JPG or WEBP · Maximum 5 MB</small>
-                        </div>
-
-                        <div id="imagePreview" class="image-preview hidden">
-                            <img id="previewImage" alt="Screenshot preview">
-                            <button type="button" id="removeImage" class="remove-image">
-                                Remove image ×
-                            </button>
-                        </div>
-                    </label>
-
-                    <div class="ai-info">
-                        <span>✦</span>
-                        <div>
-                            <strong>AI analysis coming soon</strong>
-                            <p>Gemini will analyze your screenshot and description in Phase 6.</p>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="primary-button full-width">
-                        Save bug report →
-                    </button>
-
-                    <button type="reset" class="secondary-button full-width" id="resetForm">
-                        Clear form
-                    </button>
-                </div>
 
             </form>
-        </section>
 
-        <!-- ALL REPORTS -->
-        <section class="page" id="reportsPage">
 
-            <div class="page-heading">
-                <div>
-                    <span class="eyebrow">ISSUE MANAGEMENT</span>
-                    <h1>All bug reports</h1>
-                    <p>Manage and track your reported issues.</p>
-                </div>
+            <p class="auth-switch">
 
-                <button class="primary-button" data-page="create">
-                    ＋ New report
+                Don't have an account?
+
+                <button
+                    type="button"
+                    id="showRegister"
+                >
+                    Create account
                 </button>
+
+            </p>
+
+        </div>
+
+
+        <!-- REGISTER CARD -->
+
+        <div class="auth-card hidden" id="registerCard">
+
+            <div class="auth-heading">
+
+                <span class="eyebrow">GET STARTED</span>
+
+                <h1>Create your account.</h1>
+
+                <p>
+                    Set up your BugSnap developer workspace.
+                </p>
+
             </div>
 
-            <div class="panel">
-                <div class="toolbar">
-                    <input
-                        type="search"
-                        id="searchInput"
-                        placeholder="Search bug reports..."
+
+            <form id="registerForm">
+
+                <label for="registerName">
+                    Full name
+                </label>
+
+                <input
+                    type="text"
+                    id="registerName"
+                    placeholder="Your name"
+                    minlength="2"
+                    maxlength="50"
+                    autocomplete="name"
+                    required
+                >
+
+
+                <label for="registerEmail">
+                    Email address
+                </label>
+
+                <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="you@example.com"
+                    autocomplete="email"
+                    required
+                >
+
+
+                <label for="registerPassword">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="registerPassword"
+                    placeholder="Minimum 8 characters"
+                    minlength="8"
+                    maxlength="72"
+                    autocomplete="new-password"
+                    required
+                >
+
+
+                <label for="confirmPassword">
+                    Confirm password
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Re-enter password"
+                    minlength="8"
+                    maxlength="72"
+                    autocomplete="new-password"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                    class="primary-button auth-submit"
+                >
+                    Create account →
+                </button>
+
+            </form>
+
+
+            <p class="auth-switch">
+
+                Already have an account?
+
+                <button
+                    type="button"
+                    id="showLogin"
+                >
+                    Sign in
+                </button>
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+         MAIN APPLICATION
+    ====================================== -->
+
+    <div class="app-shell">
+
+
+        <!-- =================================
+             SIDEBAR
+        ================================== -->
+
+        <aside class="sidebar" id="sidebar">
+
+
+            <!-- Brand -->
+
+            <div class="sidebar-brand">
+
+                <div class="brand-icon">
+                    ✦
+                </div>
+
+                <span>
+                    Bug<span class="brand-highlight">Snap</span>
+                </span>
+
+            </div>
+
+
+            <!-- Workspace -->
+
+            <div class="workspace-label">
+                WORKSPACE
+            </div>
+
+
+            <!-- Navigation -->
+
+            <nav class="sidebar-nav">
+
+                <button
+                    type="button"
+                    class="nav-item active"
+                    data-page="dashboard"
+                >
+                    <span class="nav-icon">▦</span>
+                    <span>Dashboard</span>
+                </button>
+
+
+                <button
+                    type="button"
+                    class="nav-item"
+                    data-page="reports"
+                >
+                    <span class="nav-icon">▤</span>
+                    <span>All Reports</span>
+                </button>
+
+
+                <button
+                    type="button"
+                    class="nav-item"
+                    data-page="create"
+                >
+                    <span class="nav-icon">＋</span>
+                    <span>Create Report</span>
+                </button>
+
+            </nav>
+
+
+            <!-- Preferences -->
+
+            <div class="workspace-label">
+                PREFERENCES
+            </div>
+
+
+            <nav class="sidebar-nav">
+
+                <button
+                    type="button"
+                    class="nav-item"
+                    data-page="settings"
+                >
+                    <span class="nav-icon">⚙</span>
+                    <span>Settings</span>
+                </button>
+
+            </nav>
+
+
+            <!-- Sidebar Bottom -->
+
+            <div class="sidebar-bottom">
+
+                <div class="profile-card">
+
+                    <div class="avatar" id="profileAvatar">
+                        D
+                    </div>
+
+
+                    <div class="profile-info">
+
+                        <strong id="profileName">
+                            Developer
+                        </strong>
+
+                        <small id="profileEmail">
+                            Personal Workspace
+                        </small>
+
+                    </div>
+
+
+                    <button
+                        class="logout-button"
+                        id="logoutButton"
+                        type="button"
+                        title="Logout"
                     >
+                        ↗
+                    </button>
 
-                    <select id="statusFilter">
-                        <option value="">All statuses</option>
-                        <option>Open</option>
-                        <option>In Progress</option>
-                        <option>Resolved</option>
-                    </select>
-
-                    <select id="severityFilter">
-                        <option value="">All severities</option>
-                        <option>Critical</option>
-                        <option>High</option>
-                        <option>Medium</option>
-                        <option>Low</option>
-                    </select>
-
-                    <select id="sortFilter">
-                        <option value="newest">Newest first</option>
-                        <option value="oldest">Oldest first</option>
-                    </select>
                 </div>
 
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>BUG TITLE</th>
-                                <th>CATEGORY</th>
-                                <th>SEVERITY</th>
-                                <th>STATUS</th>
-                                <th>DATE</th>
-                                <th>ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody id="allReports"></tbody>
-                    </table>
-                </div>
-
-                <div class="empty-state" id="allEmpty">
-                    <span>◫</span>
-                    <h3>No matching reports</h3>
-                    <p>Try changing your search or filters.</p>
-                </div>
             </div>
-        </section>
 
-        <!-- REPORT DETAILS -->
-        <section class="page" id="detailsPage">
-            <div class="page-heading">
-                <div>
-                    <span class="eyebrow">REPORT DETAILS</span>
-                    <h1 id="detailTitle">Bug details</h1>
-                    <p id="detailSubtitle">Review the issue information.</p>
-                </div>
-                <button class="secondary-button" data-page="reports">
-                    ← Back to reports
+        </aside>
+
+
+        <!-- =================================
+             MAIN CONTENT
+        ================================== -->
+
+        <main class="main-content">
+
+
+            <!-- TOPBAR -->
+
+            <header class="topbar">
+
+                <button
+                    type="button"
+                    class="mobile-menu"
+                    id="mobileMenu"
+                    aria-label="Open navigation"
+                >
+                    ☰
                 </button>
+
+
+                <div class="topbar-heading">
+
+                    <span class="topbar-eyebrow">
+                        DEVELOPER WORKSPACE
+                    </span>
+
+                    <h2>Bug Tracking</h2>
+
+                </div>
+
+
+                <div class="topbar-actions">
+
+                    <button
+                        type="button"
+                        class="notification-button"
+                        id="notificationButton"
+                        title="Notifications"
+                    >
+                        ♧
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="primary-button"
+                        data-page="create"
+                    >
+                        + New Report
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- PAGE CONTAINER -->
+
+            <div class="page-container">
+
+
+                <!-- =================================
+                     DASHBOARD PAGE
+                ================================== -->
+
+                <section
+                    class="page-section"
+                    id="dashboardPage"
+                >
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                OVERVIEW
+                            </span>
+
+                            <h1>Dashboard</h1>
+
+                            <p>
+                                Track and manage your reported bugs.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STATISTICS -->
+
+                    <div class="stats-grid">
+
+
+                        <div class="stat-card">
+
+                            <div class="stat-top">
+                                <span>Total Reports</span>
+                                <span class="stat-icon">▤</span>
+                            </div>
+
+                            <h2 id="totalStat">0</h2>
+
+                            <p>All submitted reports</p>
+
+                        </div>
+
+
+                        <div class="stat-card">
+
+                            <div class="stat-top">
+                                <span>Open</span>
+                                <span class="stat-icon">◉</span>
+                            </div>
+
+                            <h2 id="openStat">0</h2>
+
+                            <p>Awaiting attention</p>
+
+                        </div>
+
+
+                        <div class="stat-card">
+
+                            <div class="stat-top">
+                                <span>In Progress</span>
+                                <span class="stat-icon">◷</span>
+                            </div>
+
+                            <h2 id="progressStat">0</h2>
+
+                            <p>Currently being worked on</p>
+
+                        </div>
+
+
+                        <div class="stat-card">
+
+                            <div class="stat-top">
+                                <span>Resolved</span>
+                                <span class="stat-icon">✓</span>
+                            </div>
+
+                            <h2 id="resolvedStat">0</h2>
+
+                            <p>Successfully resolved</p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DASHBOARD PANELS -->
+
+                    <div class="dashboard-grid">
+
+
+                        <!-- RECENT REPORTS -->
+
+                        <div class="dashboard-panel recent-panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <h3>Recent Reports</h3>
+
+                                    <p>
+                                        Your latest bug submissions
+                                    </p>
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="text-button"
+                                    data-page="reports"
+                                >
+                                    View all →
+                                </button>
+
+                            </div>
+
+
+                            <div class="table-wrapper">
+
+                                <table>
+
+                                    <thead>
+
+                                        <tr>
+                                            <th>REPORT</th>
+                                            <th>SEVERITY</th>
+                                            <th>STATUS</th>
+                                            <th>DATE</th>
+                                        </tr>
+
+                                    </thead>
+
+
+                                    <tbody id="recentReports">
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+
+                            <div
+                                class="empty-state hidden"
+                                id="recentEmpty"
+                            >
+
+                                <div class="empty-icon">
+                                    ▤
+                                </div>
+
+                                <h3>No reports yet</h3>
+
+                                <p>
+                                    Your recent bug reports will appear here.
+                                </p>
+
+                                <button
+                                    type="button"
+                                    class="primary-button"
+                                    data-page="create"
+                                >
+                                    Create your first report
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- SEVERITY OVERVIEW -->
+
+                        <div class="dashboard-panel severity-panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <h3>Severity Overview</h3>
+
+                                    <p>
+                                        Reports by severity
+                                    </p>
+                                </div>
+
+                            </div>
+
+
+                            <div id="severityOverview">
+
+                                <div class="severity-row">
+                                    <span>Critical</span>
+                                    <div class="severity-track">
+                                        <div class="severity-fill critical-fill"></div>
+                                    </div>
+                                    <strong>0</strong>
+                                </div>
+
+                                <div class="severity-row">
+                                    <span>High</span>
+                                    <div class="severity-track">
+                                        <div class="severity-fill high-fill"></div>
+                                    </div>
+                                    <strong>0</strong>
+                                </div>
+
+                                <div class="severity-row">
+                                    <span>Medium</span>
+                                    <div class="severity-track">
+                                        <div class="severity-fill medium-fill"></div>
+                                    </div>
+                                    <strong>0</strong>
+                                </div>
+
+                                <div class="severity-row">
+                                    <span>Low</span>
+                                    <div class="severity-track">
+                                        <div class="severity-fill low-fill"></div>
+                                    </div>
+                                    <strong>0</strong>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="dashboard-footer">
+                        Showing <strong id="reportCount">0</strong>
+                        reports in your workspace.
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     CREATE REPORT PAGE
+                ================================== -->
+
+                <section
+                    class="page-section hidden"
+                    id="createPage"
+                >
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                BUG MANAGEMENT
+                            </span>
+
+                            <h1>Create Bug Report</h1>
+
+                            <p>
+                                Document an issue and attach a screenshot.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <form id="reportForm">
+
+                        <div class="form-layout">
+
+
+                            <!-- LEFT COLUMN -->
+
+                            <div class="form-main">
+
+
+                                <!-- DESCRIPTION -->
+
+                                <div class="form-panel">
+
+                                    <div class="form-panel-heading">
+
+                                        <h3>Bug Information</h3>
+
+                                        <p>
+                                            Describe the issue clearly.
+                                        </p>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="bugDescription">
+                                            Bug Description
+                                            <span class="required">*</span>
+                                        </label>
+
+                                        <textarea
+                                            id="bugDescription"
+                                            rows="4"
+                                            minlength="10"
+                                            maxlength="2000"
+                                            placeholder="Describe what happened..."
+                                            required
+                                        ></textarea>
+
+                                    </div>
+
+
+                                    <div class="form-row">
+
+                                        <div class="form-group">
+
+                                            <label for="bugCategory">
+                                                Category
+                                            </label>
+
+                                            <select id="bugCategory">
+
+                                                <option value="Functional">
+                                                    Functional
+                                                </option>
+
+                                                <option value="UI / UX">
+                                                    UI / UX
+                                                </option>
+
+                                                <option value="Performance">
+                                                    Performance
+                                                </option>
+
+                                                <option value="Security">
+                                                    Security
+                                                </option>
+
+                                                <option value="Compatibility">
+                                                    Compatibility
+                                                </option>
+
+                                                <option value="Other">
+                                                    Other
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+
+
+                                        <div class="form-group">
+
+                                            <label for="bugSeverity">
+                                                Severity
+                                            </label>
+
+                                            <select id="bugSeverity">
+
+                                                <option value="Critical">
+                                                    Critical
+                                                </option>
+
+                                                <option value="High">
+                                                    High
+                                                </option>
+
+                                                <option value="Medium" selected>
+                                                    Medium
+                                                </option>
+
+                                                <option value="Low">
+                                                    Low
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+
+
+                                        <div class="form-group">
+
+                                            <label for="bugPriority">
+                                                Priority
+                                            </label>
+
+                                            <select id="bugPriority">
+
+                                                <option value="High">
+                                                    High
+                                                </option>
+
+                                                <option value="Medium" selected>
+                                                    Medium
+                                                </option>
+
+                                                <option value="Low">
+                                                    Low
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- EXPECTED AND ACTUAL -->
+
+                                <div class="form-panel">
+
+                                    <div class="form-panel-heading">
+
+                                        <h3>Behavior Details</h3>
+
+                                        <p>
+                                            Explain the expected and actual results.
+                                        </p>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="expectedBehavior">
+                                            Expected Behavior
+                                        </label>
+
+                                        <textarea
+                                            id="expectedBehavior"
+                                            rows="3"
+                                            maxlength="2000"
+                                            placeholder="What should happen?"
+                                        ></textarea>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="actualBehavior">
+                                            Actual Behavior
+                                        </label>
+
+                                        <textarea
+                                            id="actualBehavior"
+                                            rows="3"
+                                            maxlength="2000"
+                                            placeholder="What actually happened?"
+                                        ></textarea>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="reproductionSteps">
+                                            Steps to Reproduce
+                                        </label>
+
+                                        <textarea
+                                            id="reproductionSteps"
+                                            rows="4"
+                                            maxlength="2000"
+                                            placeholder="1. Open the application&#10;2. Navigate to the page&#10;3. Perform the action..."
+                                        ></textarea>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- RIGHT COLUMN -->
+
+                            <div class="form-sidebar">
+
+
+                                <!-- SCREENSHOT UPLOAD -->
+
+                                <div class="form-panel upload-panel">
+
+                                    <div class="form-panel-heading">
+
+                                        <h3>Attach Screenshot</h3>
+
+                                        <p>
+                                            Upload an image showing the issue.
+                                        </p>
+
+                                    </div>
+
+
+                                    <label
+                                        for="screenshotInput"
+                                        class="upload-zone"
+                                        id="uploadZone"
+                                    >
+
+                                        <div class="upload-content">
+
+                                            <div class="upload-icon">
+                                                ↑
+                                            </div>
+
+                                            <strong>
+                                                Drop your screenshot here
+                                            </strong>
+
+                                            <span>
+                                                or click to browse files
+                                            </span>
+
+                                            <small>
+                                                PNG, JPG, JPEG or WEBP · Maximum 5 MB
+                                            </small>
+
+                                        </div>
+
+                                    </label>
+
+
+                                    <input
+                                        type="file"
+                                        id="screenshotInput"
+                                        accept="image/png,image/jpeg,image/webp"
+                                        hidden
+                                    >
+
+
+                                    <!-- IMAGE PREVIEW -->
+
+                                    <div
+                                        class="image-preview hidden"
+                                        id="imagePreview"
+                                    >
+
+                                        <img
+                                            id="previewImage"
+                                            src=""
+                                            alt="Screenshot preview"
+                                        >
+
+                                        <button
+                                            type="button"
+                                            id="removeImage"
+                                            class="remove-image"
+                                        >
+                                            Remove image
+                                        </button>
+
+                                    </div>
+
+
+                                    <div class="upload-info">
+
+                                        <span>✦</span>
+
+                                        <p>
+                                            Your screenshot will be securely
+                                            stored using Cloudinary.
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- SUBMIT -->
+
+                                <div class="form-panel submit-panel">
+
+                                    <div class="form-panel-heading">
+
+                                        <h3>Ready to submit?</h3>
+
+                                        <p>
+                                            Review your information before saving.
+                                        </p>
+
+                                    </div>
+
+
+                                    <button
+                                        type="submit"
+                                        class="primary-button submit-report-button"
+                                    >
+                                        Save bug report →
+                                    </button>
+
+
+                                    <button
+                                        type="button"
+                                        class="secondary-button cancel-report-button"
+                                        data-page="dashboard"
+                                    >
+                                        Cancel
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+
+                <!-- =================================
+                     ALL REPORTS PAGE
+                ================================== -->
+
+                <section
+                    class="page-section hidden"
+                    id="reportsPage"
+                >
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                BUG MANAGEMENT
+                            </span>
+
+                            <h1>All Reports</h1>
+
+                            <p>
+                                Search, filter and manage your reported issues.
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="primary-button"
+                            data-page="create"
+                        >
+                            + New Report
+                        </button>
+
+                    </div>
+
+
+                    <!-- FILTERS -->
+
+                    <div class="filter-panel">
+
+                        <div class="search-wrapper">
+
+                            <span>⌕</span>
+
+                            <input
+                                type="search"
+                                id="searchInput"
+                                placeholder="Search bug reports..."
+                            >
+
+                        </div>
+
+
+                        <select id="statusFilter">
+
+                            <option value="all">
+                                All Statuses
+                            </option>
+
+                            <option value="Open">
+                                Open
+                            </option>
+
+                            <option value="In Progress">
+                                In Progress
+                            </option>
+
+                            <option value="Resolved">
+                                Resolved
+                            </option>
+
+                        </select>
+
+
+                        <select id="severityFilter">
+
+                            <option value="all">
+                                All Severities
+                            </option>
+
+                            <option value="Critical">
+                                Critical
+                            </option>
+
+                            <option value="High">
+                                High
+                            </option>
+
+                            <option value="Medium">
+                                Medium
+                            </option>
+
+                            <option value="Low">
+                                Low
+                            </option>
+
+                        </select>
+
+
+                        <select id="sortFilter">
+
+                            <option value="newest">
+                                Newest First
+                            </option>
+
+                            <option value="oldest">
+                                Oldest First
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- REPORT TABLE -->
+
+                    <div class="dashboard-panel reports-table-panel">
+
+                        <div class="table-wrapper">
+
+                            <table>
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>REPORT</th>
+                                        <th>SEVERITY</th>
+                                        <th>STATUS</th>
+                                        <th>PRIORITY</th>
+                                        <th>ACTION</th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody id="allReports">
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+
+                        <!-- EMPTY STATE -->
+
+                        <div
+                            class="empty-state hidden"
+                            id="allEmpty"
+                        >
+
+                            <div class="empty-icon">
+                                ▤
+                            </div>
+
+                            <h3>No reports found</h3>
+
+                            <p>
+                                Try changing your filters or create a new report.
+                            </p>
+
+                            <button
+                                type="button"
+                                class="primary-button"
+                                data-page="create"
+                            >
+                                Create Report
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     REPORT DETAILS PAGE
+                ================================== -->
+
+                <section
+                    class="page-section hidden"
+                    id="detailsPage"
+                >
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                REPORT DETAILS
+                            </span>
+
+                            <h1 id="detailTitle">
+                                Bug Report
+                            </h1>
+
+                            <p id="detailSubtitle">
+                                Report information
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="secondary-button"
+                            data-page="reports"
+                        >
+                            ← Back to Reports
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="dashboard-panel detail-panel"
+                        id="detailContent"
+                    >
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     SETTINGS PAGE
+                ================================== -->
+
+                <section
+                    class="page-section hidden"
+                    id="settingsPage"
+                >
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                PREFERENCES
+                            </span>
+
+                            <h1>Settings</h1>
+
+                            <p>
+                                Manage your BugSnap workspace.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="dashboard-panel settings-panel">
+
+                        <div class="panel-header">
+
+                            <div>
+
+                                <h3>Workspace Information</h3>
+
+                                <p>
+                                    Your authenticated account details.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="settings-item">
+
+                            <div>
+                                <strong>Account Name</strong>
+                                <p id="settingsName">Developer</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="settings-item">
+
+                            <div>
+                                <strong>Email Address</strong>
+                                <p id="settingsEmail">Not available</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="settings-item">
+
+                            <div>
+                                <strong>Application</strong>
+                                <p>BugSnap Developer Workspace</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="settings-item">
+
+                            <div>
+                                <strong>Local Preferences</strong>
+
+                                <p>
+                                    Clear local browser preferences without
+                                    deleting server data.
+                                </p>
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                class="danger-button"
+                                id="clearDataButton"
+                            >
+                                Clear Preferences
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
             </div>
 
-            <div class="panel detail-panel" id="detailContent"></div>
-        </section>
+        </main>
 
-        <!-- SETTINGS -->
-        <section class="page" id="settingsPage">
-            <div class="page-heading">
-                <div>
-                    <span class="eyebrow">PREFERENCES</span>
-                    <h1>Settings</h1>
-                    <p>Application information and preferences.</p>
-                </div>
-            </div>
+    </div>
 
-            <div class="panel settings-panel">
-                <h3>Workspace information</h3>
-                <div class="settings-row">
-                    <span>Application</span>
-                    <strong>BugSnap</strong>
-                </div>
-                <div class="settings-row">
-                    <span>Version</span>
-                    <strong>1.0.0 – Development</strong>
-                </div>
-                <div class="settings-row">
-                    <span>Frontend</span>
-                    <strong>HTML, CSS, JavaScript</strong>
-                </div>
-                <div class="settings-row">
-                    <span>Backend</span>
-                    <strong>Node.js + Express</strong>
-                </div>
-                <div class="settings-row">
-                    <span>Data storage</span>
-                    <strong>Browser localStorage (demo)</strong>
-                </div>
 
-                <button class="secondary-button" id="clearDataButton">
-                    Clear demo data
-                </button>
-            </div>
-        </section>
+    <!-- =====================================
+         TOAST NOTIFICATIONS
+    ====================================== -->
 
-    </main>
-</div>
+    <div
+        id="toastContainer"
+        class="toast-container"
+        aria-live="polite"
+    ></div>
 
-<div class="toast-container" id="toastContainer"></div>
 
-<script src="/js/reports.js"></script>
-<script src="/js/upload.js"></script>
-<script src="/js/dashboard.js"></script>
-<script src="/js/app.js"></script>
-<script src="/js/auth.js"></script>
+    <!-- =====================================
+         JAVASCRIPT FILES
+    ====================================== -->
+
+    <script src="/js/auth.js"></script>
+    <script src="/js/reports.js"></script>
+    <script src="/js/upload.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/app.js"></script>
 
 </body>
 </html>

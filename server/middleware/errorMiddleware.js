@@ -1,16 +1,35 @@
 
-const errorHandler = (err, req, res, next) => {
-    console.error(err);
+import multer from "multer";
 
-    const statusCode = res.statusCode >= 400
-        ? res.statusCode
-        : 500;
+const errorHandler = (error, req, res, next) => {
+    console.error("Server error:", error);
 
-    res.status(statusCode).json({
+    if (error instanceof multer.MulterError) {
+        const message = error.code === "LIMIT_FILE_SIZE"
+            ? "Screenshot must be 5 MB or smaller."
+            : "Screenshot upload limit exceeded.";
+
+        return res.status(400).json({
+            success: false,
+            message
+        });
+    }
+
+    if (
+        error.message &&
+        error.message.startsWith("Only PNG")
+    ) {
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        });
+    }
+
+    res.status(error.statusCode || 500).json({
         success: false,
-        message: statusCode === 500
-            ? "Internal server error"
-            : err.message
+        message: error.statusCode
+            ? error.message
+            : "Internal server error."
     });
 };
 

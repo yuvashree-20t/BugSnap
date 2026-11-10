@@ -2,18 +2,21 @@
 import express from "express";
 
 import protect from "../middleware/authMiddleware.js";
+import upload from "../middleware/uploadMiddleware.js";
 
 import {
     getReports,
     getReportById,
     createReport,
     updateReport,
-    deleteReport
+    deleteReport,
+    uploadScreenshot,
+    deleteScreenshot
 } from "../controllers/reportController.js";
 
 const router = express.Router();
 
-// Every report route requires authentication
+// All report routes require authentication
 router.use(protect);
 
 router.route("/")
@@ -24,5 +27,17 @@ router.route("/:id")
     .get(getReportById)
     .put(updateReport)
     .delete(deleteReport);
+
+// Screenshot routes
+router.post(
+    "/:id/screenshot",
+    upload.single("screenshot"),
+    uploadScreenshot
+);
+
+router.delete(
+    "/:id/screenshot",
+    deleteScreenshot
+);
 
 export default router;

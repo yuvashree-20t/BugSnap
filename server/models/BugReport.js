@@ -75,9 +75,14 @@ const bugReportSchema = new mongoose.Schema(
         },
 
         screenshotUrl: {
-            type: String,
-            default: ""
-        },
+    type: String,
+    default: ""
+},
+
+        screenshotPublicId: {
+    type: String,
+    default: ""
+},
 
         status: {
             type: String,

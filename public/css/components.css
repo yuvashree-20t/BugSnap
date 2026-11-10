@@ -317,3 +317,59 @@
 .detail-section {
     border-bottom-color: rgba(255,255,255,0.07);
 }
+
+/* =========================================
+   BUGSNAP SCREENSHOT DISPLAY
+========================================= */
+
+.screenshot-detail {
+    margin-top: 22px;
+    padding: 20px;
+
+    background: #11121a;
+
+    border: 1px solid rgba(170,155,220,0.13);
+    border-radius: 13px;
+}
+
+.screenshot-detail h3 {
+    margin: 0 0 15px;
+
+    color: #f5f5fa;
+    font-size: 14px;
+}
+
+.report-screenshot {
+    display: block;
+
+    width: 100%;
+    max-width: 650px;
+    max-height: 420px;
+
+    object-fit: contain;
+    object-position: left center;
+
+    background: #08090d;
+
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+}
+
+.delete-screenshot-button {
+    margin-top: 14px;
+    padding: 9px 13px;
+
+    background: rgba(251,113,133,0.08);
+
+    border: 1px solid rgba(251,113,133,0.2);
+    border-radius: 8px;
+
+    color: #fb7185;
+
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.delete-screenshot-button:hover {
+    background: rgba(251,113,133,0.16);
+}
